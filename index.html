@@ -7,8 +7,31 @@
   <title>SheetJS-Practice</title>
 </head>
 <body>
-  <table id="tableToExport"></table>
+  <table id="tableToExport">
+    <thead>
+      <tr>
+        <th>A1</th>
+        <th>A2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>A1</td>
+        <td>A2</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button id="sheetJSExport">Export as XLSX</button>
 
   <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <script>
+    const btn = document.querySelector('#sheetJSExport');
+    btn.addEventListener('click', () => {
+      const table = document.querySelector('#tableToExport');
+      const wb = XLSX.utils.table_to_book(table);
+      XLSX.writeFile(wb, 'SheetJSTable.xlsx');
+    });
+  </script>
 </body>
 </html>
