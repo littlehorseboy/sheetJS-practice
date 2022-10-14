@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SheetJS-Practice</title>
 </head>
+
 <body>
   <input type="file" id="excel" value="Excel">
 
@@ -15,15 +17,20 @@
 
     fileInput.addEventListener('change', async (e) => {
       const file = e.target.files[0];
-      const data = await file.arrayBuffer();
 
-      const wb = XLSX.read(data);
-      const ws = wb.Sheets[wb.SheetNames[0]];
-
-      window.jjj = XLSX.utils.sheet_to_json(ws, { range: 1 });
-
-      console.log(jjj);
+      if (file) {
+        const data = await file.arrayBuffer();
+  
+        const wb = XLSX.read(data);
+        const ws = wb.Sheets[wb.SheetNames[0]];
+  
+        // 超過 5 萬多 KB 就會抓不到 Sheets 內容了
+        const json = XLSX.utils.sheet_to_json(ws, { range: 1 });
+  
+        console.log(json);
+      }
     });
   </script>
 </body>
+
 </html>
